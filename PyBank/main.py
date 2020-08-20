@@ -34,7 +34,7 @@ with open(csvpath, 'r') as csvfile:
 
 # Read each row of data after the header
     for row in csvreader:
-        print(row)
+        # print(row)
 
 # Calculation for number of months
         months.append(row[0])       
@@ -44,9 +44,9 @@ with open(csvpath, 'r') as csvfile:
         profit_loss.append(float(row[1]))
         total_profit_loss = sum(profit_loss)
  
-# Calculation for the monthly change and average monthly change (where i is for current month and i-1 is previous month)
-    for i in range(1,len(profit_loss)):
-        monthly_change.append(profit_loss[i]-profit_loss[i-1])    
+# Calculation for the monthly change and average monthly change, between current two months and append
+    for i in range(len(profit_loss)-1):
+        monthly_change.append(profit_loss[i+1]-profit_loss[i])    
 
         total_monthly_change = sum(monthly_change)   
                 
@@ -58,9 +58,9 @@ with open(csvpath, 'r') as csvfile:
         greatest_increase_profits = max(monthly_change)
         greatest_decrease_profits = min(monthly_change)
 
-# Identifying the month of greatest increase and greatest decrease in monthly change. 
-        greatest_increase_profits_date = str(months[monthly_change.index(max(monthly_change))])
-        greatest_decrease_profits_date = str(months[monthly_change.index(min(monthly_change))])
+# Identifying the month of greatest increase and greatest decrease in monthly change. Include +1 for the month since it is associated with the change for the next month.
+        greatest_increase_profits_date = (months[monthly_change.index(max(monthly_change))+1])
+        greatest_decrease_profits_date = (months[monthly_change.index(min(monthly_change))+1])
 
 # Output Summary, including number formatting
     print()
@@ -73,8 +73,7 @@ with open(csvpath, 'r') as csvfile:
     print("Greatest Decrease in Profits:    $" + '{:,.2f}'.format(greatest_decrease_profits) + "  in month " + (str(greatest_decrease_profits_date)))
     print("-----------------------------------------------")
 
-# Sequence to export results
-# Specify the file to write to
+# Sequence to export results. Specify the file to write to
 output_path = os.path.join("Financial_Summary.txt")
 
 with open("Financial_Summary.txt", 'w') as text_file:
