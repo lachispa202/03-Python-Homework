@@ -1,3 +1,5 @@
+# PyBank Homework
+
 # Import the os module
 # Import the csv reader
 
@@ -28,11 +30,11 @@ with open(csvpath, 'r') as csvfile:
 
 # To skip top row (ie header row) in csv file and print it out
     csv_header = next (csvreader)
-    # print(f"CSV Header: {csv_header}")
+    print(f"CSV Header: {csv_header}")
 
 # Read each row of data after the header
     for row in csvreader:
-        # print(row)
+        print(row)
 
 # Calculation for number of months
         months.append(row[0])       
@@ -40,15 +42,17 @@ with open(csvpath, 'r') as csvfile:
 
 # Calculation for the the total profits 
         profit_loss.append(float(row[1]))
-        total_profit_loss =sum(profit_loss)
+        total_profit_loss = sum(profit_loss)
  
 # Calculation for the monthly change and average monthly change (where i is for current month and i-1 is previous month)
     for i in range(1,len(profit_loss)):
         monthly_change.append(profit_loss[i]-profit_loss[i-1])    
 
         total_monthly_change = sum(monthly_change)   
-            
+                
         average_change = total_monthly_change/len(monthly_change)
+  
+        # print(monthly_change)
 
 # Calculation for the greatest increase and greatest decrease in monthly change. 
         greatest_increase_profits = max(monthly_change)
